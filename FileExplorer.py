@@ -12,21 +12,21 @@ import fnmatch
 class FileExplorer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Zero文件资源管理器")
+        self.root.title("文件资源管理器")
         self.root.geometry("1000x600")
 
-        # 创建菜单栏
+        #创建菜单栏
         self.menu = tk.Menu(self.root)
         self.root.config(menu=self.menu)
 
-        # 文件菜单
+        #文件菜单
         file_menu = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="文件", menu=file_menu)
         file_menu.add_command(label="打开文件夹", command=self.open_directory)
         file_menu.add_separator()
         file_menu.add_command(label="退出", command=self.root.quit)
 
-        # 操作菜单
+        #操作菜单
         action_menu = tk.Menu(self.menu, tearoff=0)
         self.menu.add_cascade(label="操作", menu=action_menu)
         action_menu.add_command(label="复制", command=self.copy_item)
@@ -35,18 +35,18 @@ class FileExplorer:
         action_menu.add_command(label="搜索", command=self.search_files)
         action_menu.add_command(label="预览", command=self.preview_file)
 
-        # 创建列表框显示文件和文件夹
+        #创建列表框显示文件和文件夹
         self.listbox = tk.Listbox(self.root, width=100, height=20)
         self.listbox.pack(pady=20, fill=tk.BOTH, expand=True)
 
-        # 绑定双击事件
+        #绑定双击事件
         self.listbox.bind("<Double-1>", self.on_double_click)
 
-        # 当前路径
+        #当前路径
         self.current_path = os.getcwd()
         self.update_listbox()
 
-        # 搜索功能相关
+        #搜索功能相关
         self.search_frame = None
         self.search_entry = None
         self.search_results = []
@@ -227,12 +227,12 @@ class FileExplorer:
         """预览图片文件"""
         try:
             image = Image.open(file_path)
-            image.thumbnail((600, 400))  # 缩放图片
+            image.thumbnail((600, 400))    #缩放图片
             photo = ImageTk.PhotoImage(image)
             preview_window = tk.Toplevel(self.root)
             preview_window.title(f"预览: {os.path.basename(file_path)}")
             label = tk.Label(preview_window, image=photo)
-            label.image = photo  # 保存对PhotoImage的引用
+            label.image = photo    #保存对PhotoImage的引用
             label.pack()
         except Exception as e:
             messagebox.showerror("错误", f"无法打开图片: {e}")
